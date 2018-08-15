@@ -43,7 +43,7 @@
             // 
             // AddImagesButton
             // 
-            this.AddImagesButton.Location = new System.Drawing.Point(717, 0);
+            this.AddImagesButton.Location = new System.Drawing.Point(718, 0);
             this.AddImagesButton.Name = "AddImagesButton";
             this.AddImagesButton.Size = new System.Drawing.Size(62, 23);
             this.AddImagesButton.TabIndex = 1;
@@ -53,7 +53,7 @@
             // 
             // ViewImagesButton
             // 
-            this.ViewImagesButton.Location = new System.Drawing.Point(717, 29);
+            this.ViewImagesButton.Location = new System.Drawing.Point(718, 29);
             this.ViewImagesButton.Name = "ViewImagesButton";
             this.ViewImagesButton.Size = new System.Drawing.Size(62, 23);
             this.ViewImagesButton.TabIndex = 2;

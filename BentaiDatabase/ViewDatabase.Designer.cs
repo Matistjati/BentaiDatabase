@@ -64,6 +64,9 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.FavoriteButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
+            this.SearchResultLabel = new System.Windows.Forms.Label();
+            this.CurrentImageLabel = new System.Windows.Forms.Label();
+            this.ResetSearchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hentaiPicBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,9 +82,10 @@
             // 
             // hentaiPicBox
             // 
-            this.hentaiPicBox.Location = new System.Drawing.Point(117, 4);
+            this.hentaiPicBox.Location = new System.Drawing.Point(117, 0);
             this.hentaiPicBox.Name = "hentaiPicBox";
-            this.hentaiPicBox.Size = new System.Drawing.Size(549, 375);
+            this.hentaiPicBox.Size = new System.Drawing.Size(552, 379);
+            this.hentaiPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.hentaiPicBox.TabIndex = 0;
             this.hentaiPicBox.TabStop = false;
             // 
@@ -394,7 +398,7 @@
             // 
             // FavoriteButton
             // 
-            this.FavoriteButton.Location = new System.Drawing.Point(226, 383);
+            this.FavoriteButton.Location = new System.Drawing.Point(229, 383);
             this.FavoriteButton.Name = "FavoriteButton";
             this.FavoriteButton.Size = new System.Drawing.Size(75, 23);
             this.FavoriteButton.TabIndex = 34;
@@ -412,10 +416,39 @@
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // SearchResultLabel
+            // 
+            this.SearchResultLabel.AutoSize = true;
+            this.SearchResultLabel.Location = new System.Drawing.Point(85, 388);
+            this.SearchResultLabel.Name = "SearchResultLabel";
+            this.SearchResultLabel.Size = new System.Drawing.Size(0, 13);
+            this.SearchResultLabel.TabIndex = 36;
+            // 
+            // CurrentImageLabel
+            // 
+            this.CurrentImageLabel.AutoSize = true;
+            this.CurrentImageLabel.Location = new System.Drawing.Point(156, 389);
+            this.CurrentImageLabel.Name = "CurrentImageLabel";
+            this.CurrentImageLabel.Size = new System.Drawing.Size(0, 13);
+            this.CurrentImageLabel.TabIndex = 37;
+            // 
+            // ResetSearchButton
+            // 
+            this.ResetSearchButton.Location = new System.Drawing.Point(525, 383);
+            this.ResetSearchButton.Name = "ResetSearchButton";
+            this.ResetSearchButton.Size = new System.Drawing.Size(81, 23);
+            this.ResetSearchButton.TabIndex = 38;
+            this.ResetSearchButton.Text = "Reset Search";
+            this.ResetSearchButton.UseVisualStyleBackColor = true;
+            this.ResetSearchButton.Click += new System.EventHandler(this.ResetSearchButton_Click);
+            // 
             // ViewDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ResetSearchButton);
+            this.Controls.Add(this.CurrentImageLabel);
+            this.Controls.Add(this.SearchResultLabel);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.FavoriteButton);
             this.Controls.Add(this.SearchButton);
@@ -499,5 +532,8 @@
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button FavoriteButton;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Label SearchResultLabel;
+        private System.Windows.Forms.Label CurrentImageLabel;
+        private System.Windows.Forms.Button ResetSearchButton;
     }
 }

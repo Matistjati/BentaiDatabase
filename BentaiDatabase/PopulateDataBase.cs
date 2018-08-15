@@ -228,10 +228,11 @@ namespace BentaiDataBase
 
 
             this.SubmitTags.Cursor = Cursors.No;
-            if (loadedPics.Count > 1)
+            if (loadedPics.Count > 0)
             {
                 try
                 {
+                    picsToBeMoved.Add(loliPics[currentPic], ImagenameNumber);
                     this.LoadNewPic(this.loliPics[currentPic + 1]);
                 }
                 catch (ArgumentOutOfRangeException)
@@ -241,15 +242,6 @@ namespace BentaiDataBase
                 }
             }
 
-            try
-            {
-                picsToBeMoved.Add(loliPics[currentPic], ImagenameNumber);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                SaveFiles();
-                Loli_in_form.Instance.EmptyPanel();
-            }
             this.ImagenameNumber++;
             this.currentPic++;
             if (QueueLabel.Text != "0")
@@ -257,9 +249,8 @@ namespace BentaiDataBase
                 this.QueueLabel.Text = ((this.loliPics.Count() - 1) - currentPic).ToString();
             }
 
-            if (loadedPics.Count == 1)
+            if (loadedPics.Count == 0)
             {
-                SaveFiles();
                 Loli_in_form.Instance.EmptyPanel();
             }
         }
@@ -363,6 +354,10 @@ namespace BentaiDataBase
 
         private void SaveFiles(bool moveFile)
         {
+            if (imageData.Count == 0)
+            {
+                return;
+            }
             using (var cmd = new SQLiteCommand(sqlConnection))
             using (var transation = sqlConnection.BeginTransaction())
             {

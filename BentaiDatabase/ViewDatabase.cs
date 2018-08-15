@@ -50,7 +50,6 @@ namespace BentaiDataBase
         private int currentImage;
         private List<int> imagesToFavorite = new List<int>();
         private List<int> imagesToDelete = new List<int>();
-        private List<Image> loadedImages = new List<Image>();
         public Label[] tagLabels;
 
         public SQLiteConnection sqlConnection;
@@ -60,9 +59,16 @@ namespace BentaiDataBase
             string imageType = TestPicId(pictureId);
             if (!string.IsNullOrEmpty(imageType))
             {
-                Image imageToLoad = Image.FromFile(Path.Combine(scriptDirectory, string.Format(@"Images\{0}.{1}", pictureId, imageType)));
-                loadedImages.Add(imageToLoad);
-                hentaiPicBox.Image = imageToLoad;
+                using (var sourceImage = Image.FromFile(Path.Combine(scriptDirectory, $@"Images\{pictureId}.{imageType}")))
+                {
+                    var targetImage = new Bitmap(sourceImage.Width, sourceImage.Height,
+                      System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                    using (var canvas = Graphics.FromImage(targetImage))
+                    {
+                        canvas.DrawImageUnscaled(sourceImage, 0, 0);
+                    }
+                    hentaiPicBox.Image = targetImage;
+                }
             }
         }
 
@@ -71,6 +77,7 @@ namespace BentaiDataBase
             try
             {
                 Image imageToLoad = Image.FromFile(Path.Combine(scriptDirectory, string.Format(@"Images\{0}.png", picId)));
+                imageToLoad.Dispose();
                 return "png";
             }
             catch (FileNotFoundException)
@@ -78,6 +85,7 @@ namespace BentaiDataBase
                 try
                 {
                     Image imageToLoad = Image.FromFile(Path.Combine(scriptDirectory, string.Format(@"Images\{0}.jpg", picId)));
+                    imageToLoad.Dispose();
                     return "jpg";
                 }
                 catch (Exception)
@@ -112,11 +120,21 @@ namespace BentaiDataBase
             try
             {
                 associatedLabel.Text = buttonStates[checkState];
+                switch (associatedLabel.Text)
+                {
+                    case "Any":
+                        associatedLabel.ForeColor = Color.Empty;
+                        break;
+                    case "Yes":
+                        associatedLabel.ForeColor = Color.Green;
+                        break;
+                }
             }
             catch (KeyNotFoundException)
             {
                 checkState = 0;
                 associatedLabel.Text = buttonStates[checkState];
+                associatedLabel.ForeColor = Color.Red;
             }
         }
 
@@ -234,21 +252,33 @@ namespace BentaiDataBase
                 }
 
                 int lastAndIndex = sqlCommandString.LastIndexOf("and");
-                sqlCommandString = sqlCommandString.Remove(lastAndIndex, "and".Length);
+                if (lastAndIndex != -1)
+                {
+                    sqlCommandString = sqlCommandString.Remove(lastAndIndex, "and".Length);
+                }
             }
 
-            SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-            SQLiteDataReader sqlReader = sqlCommand.ExecuteReader();
-
-            while (sqlReader.Read())
+            try
             {
-                int imageId = (int)sqlReader["imageId"];
-                imageIds.Add(imageId);
+                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                SQLiteDataReader sqlReader = sqlCommand.ExecuteReader();
+
+                while (sqlReader.Read())
+                {
+                    int imageId = (int)sqlReader["imageId"];
+                    imageIds.Add(imageId);
+                }
+
+                if (imageIds.Count != 0)
+                {
+                    LoadNewPic(imageIds[currentImage]);
+                    CurrentImageLabel.Text = $"Image {currentImage + 1}/{imageIds.Count}";
+                }
+                SearchResultLabel.Text = $"{imageIds.Count} Results";
             }
-
-            if (imageIds.Count != 0)
+            catch (SQLiteException)
             {
-                LoadNewPic(imageIds[currentImage]);
+                SearchResultLabel.Text = "0 Results";
             }
         }
 
@@ -264,9 +294,8 @@ namespace BentaiDataBase
                 currentImage--;
                 LoadNewPic(imageIds[currentImage]);
             }
-            catch (ArgumentOutOfRangeException) {}
-            
-            
+            catch (ArgumentOutOfRangeException) { currentImage++; }
+            CurrentImageLabel.Text = $"Image {currentImage + 1}/{imageIds.Count}";
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -276,25 +305,17 @@ namespace BentaiDataBase
                 currentImage++;
                 LoadNewPic(imageIds[currentImage]);
             }
-            catch (ArgumentOutOfRangeException) { }
+            catch (ArgumentOutOfRangeException) { currentImage--; }
+            CurrentImageLabel.Text = $"Image {currentImage + 1}/{imageIds.Count}";
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            imagesToDelete.Add(currentImage);
+            imagesToDelete.Add(imageIds[currentImage]);
         }
 
         public void ViewDatabase_Leave(object sender, EventArgs e)
         {
-            if (loadedImages.Count != 0)
-            {
-                foreach (Image loadedImage in loadedImages)
-                {
-                    loadedImage.Dispose();
-                }
-            }
-            loadedImages.Clear();
-
             if (imagesToFavorite.Count != 0)
             {
                 foreach (int imageId in imagesToFavorite)
@@ -308,16 +329,34 @@ namespace BentaiDataBase
 
             if (imagesToDelete.Count != 0)
             {
+                try
+                {
+                    hentaiPicBox.Image.Dispose();
+                }
+                catch (NullReferenceException) { }
+
+                hentaiPicBox.Image = null;
                 foreach (int imageId in imagesToDelete)
                 {
                     string fileExtension = TestPicId(imageId);
                     if (!string.IsNullOrEmpty(fileExtension))
                     {
                         File.Delete(Path.Combine(scriptDirectory, $@"Images\{imageId}.{fileExtension}"));
+                        string sqlCommandString = $"delete from imageData where imageId = {imageId}";
+                        SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                        sqlCommand.ExecuteNonQuery();
                     }
                 }
             }
             imagesToDelete.Clear();
+        }
+
+        private void ResetSearchButton_Click(object sender, EventArgs e)
+        {
+            imageIds.Clear();
+            hentaiPicBox.Image = null;
+            SearchResultLabel.Text = "";
+            CurrentImageLabel.Text = "";
         }
     }
 }
