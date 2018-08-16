@@ -9,6 +9,7 @@ namespace BentaiDataBase
 {
     public partial class ViewDatabase : UserControl
     {
+        #region Singleton
         private static ViewDatabase _instance;
         public static ViewDatabase Instance
         {
@@ -21,6 +22,7 @@ namespace BentaiDataBase
                 return _instance;
             }
         }
+        #endregion
 
         private Dictionary<int, string> buttonStates = new Dictionary<int, string>()
         {
@@ -108,7 +110,7 @@ namespace BentaiDataBase
 
             scriptDirectory = System.IO.Directory.GetCurrentDirectory();
 
-            sqlConnection = new SQLiteConnection(string.Format(@"Data Source ={0}\Imagedata\images.sqlite; version = 3", scriptDirectory));
+            sqlConnection = new SQLiteConnection($@"Data Source ={scriptDirectory}\Imagedata\images.sqlite; version = 3");
             sqlConnection.Open();
         }
 
@@ -247,7 +249,7 @@ namespace BentaiDataBase
                 {
                     if (searchCriteria.Value != 2)
                     {
-                        sqlCommandString += string.Format(" {0} = {1} and", searchCriteria.Key, searchCriteria.Value);
+                        sqlCommandString += $" {searchCriteria.Key} = {searchCriteria.Value} and";
                     }
                 }
 

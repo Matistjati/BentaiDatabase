@@ -45,13 +45,17 @@ namespace BentaiDataBase
 
         private void Loli_in_form_FormClosed_1(object sender, FormClosedEventArgs e)
         {
-            if (Type.GetType("PopulateDataBase.PopulateDataBase") != null)
+            if (Type.GetType("PopulateDataBase") != null)
             {
                 PopulateDataBase.Instance.sqlConnection.Close();
             }
-            if (Type.GetType("PopulateDataBase.ViewDatabase") != null)
+            if (Type.GetType("ViewDatabase") != null)
             {
                 ViewDatabase.Instance.sqlConnection.Close();
+            }
+            if (Type.GetType("DataBaseStatistics") != null)
+            {
+                DataBaseStatistics.Instance.sqlConnection.Close();
             }
         }
 
@@ -134,6 +138,20 @@ namespace BentaiDataBase
             else
             {
                 ViewDatabase.Instance.BringToFront();
+            }
+        }
+
+        private void DataStatisticsButton_Click(object sender, EventArgs e)
+        {
+            if (!panel.Controls.Contains(DataBaseStatistics.Instance))
+            {
+                panel.Controls.Add(DataBaseStatistics.Instance);
+                DataBaseStatistics.Instance.Dock = DockStyle.Fill;
+                DataBaseStatistics.Instance.BringToFront();
+            }
+            else
+            {
+                DataBaseStatistics.Instance.BringToFront();
             }
         }
     }

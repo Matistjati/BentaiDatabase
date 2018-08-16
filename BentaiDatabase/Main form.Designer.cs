@@ -32,6 +32,7 @@
             this.panel = new System.Windows.Forms.Panel();
             this.AddImagesButton = new System.Windows.Forms.Button();
             this.ViewImagesButton = new System.Windows.Forms.Button();
+            this.DataStatisticsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel
@@ -61,12 +62,23 @@
             this.ViewImagesButton.UseVisualStyleBackColor = true;
             this.ViewImagesButton.Click += new System.EventHandler(this.ViewImagesButton_Click);
             // 
+            // DataStatisticsButton
+            // 
+            this.DataStatisticsButton.Location = new System.Drawing.Point(718, 58);
+            this.DataStatisticsButton.Name = "DataStatisticsButton";
+            this.DataStatisticsButton.Size = new System.Drawing.Size(62, 23);
+            this.DataStatisticsButton.TabIndex = 3;
+            this.DataStatisticsButton.Text = "Statistics";
+            this.DataStatisticsButton.UseVisualStyleBackColor = true;
+            this.DataStatisticsButton.Click += new System.EventHandler(this.DataStatisticsButton_Click);
+            // 
             // Loli_in_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(780, 404);
+            this.Controls.Add(this.DataStatisticsButton);
             this.Controls.Add(this.ViewImagesButton);
             this.Controls.Add(this.AddImagesButton);
             this.Controls.Add(this.panel);
@@ -86,6 +98,7 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Button AddImagesButton;
         private System.Windows.Forms.Button ViewImagesButton;
+        private System.Windows.Forms.Button DataStatisticsButton;
     }
 }
 
