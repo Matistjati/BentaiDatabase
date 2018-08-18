@@ -137,6 +137,12 @@ namespace BentaiDataBase
                 }
             }
 
+            if (valueSums.Sum() == 0)
+            {
+                CurrentChartLabel.Text = "No Database Info yet, sorry";
+                return;
+            }
+
             DataBaseChart.Series[0].ChartType = SeriesChartType.Pie;
             DataBaseChart.Series[0].Points.DataBindXY(DataNames, valueSums);
             DataBaseChart.Legends[0].Enabled = true;

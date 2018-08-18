@@ -134,6 +134,7 @@ namespace BentaiDataBase
                 panel.Controls.Add(ViewDatabase.Instance);
                 ViewDatabase.Instance.Dock = DockStyle.Fill;
                 ViewDatabase.Instance.BringToFront();
+                ViewDatabase.Instance.ViewDatabase_Load();
             }
             else
             {

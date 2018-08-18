@@ -62,11 +62,26 @@
             this.NextButton = new System.Windows.Forms.Button();
             this.PreviousButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
-            this.FavoriteButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.SearchResultLabel = new System.Windows.Forms.Label();
             this.CurrentImageLabel = new System.Windows.Forms.Label();
             this.ResetSearchButton = new System.Windows.Forms.Button();
+            this.FavoriteCheck = new System.Windows.Forms.CheckBox();
+            this.AhegaoCheck = new System.Windows.Forms.CheckBox();
+            this.TouhouCheck = new System.Windows.Forms.CheckBox();
+            this.AnalCheck = new System.Windows.Forms.CheckBox();
+            this.BlowJobCheck = new System.Windows.Forms.CheckBox();
+            this.LoliCheck = new System.Windows.Forms.CheckBox();
+            this.BoatCheck = new System.Windows.Forms.CheckBox();
+            this.bigbreastCheck = new System.Windows.Forms.CheckBox();
+            this.ToysCheck = new System.Windows.Forms.CheckBox();
+            this.SoloCheck = new System.Windows.Forms.CheckBox();
+            this.TentacleCheck = new System.Windows.Forms.CheckBox();
+            this.MasturbationCheck = new System.Windows.Forms.CheckBox();
+            this.NonhCheck = new System.Windows.Forms.CheckBox();
+            this.KemonomimiCheck = new System.Windows.Forms.CheckBox();
+            this.YuriCheck = new System.Windows.Forms.CheckBox();
+            this.ShowTagsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hentaiPicBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +99,7 @@
             // 
             this.hentaiPicBox.Location = new System.Drawing.Point(117, 0);
             this.hentaiPicBox.Name = "hentaiPicBox";
-            this.hentaiPicBox.Size = new System.Drawing.Size(552, 379);
+            this.hentaiPicBox.Size = new System.Drawing.Size(600, 380);
             this.hentaiPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.hentaiPicBox.TabIndex = 0;
             this.hentaiPicBox.TabStop = false;
@@ -368,7 +383,7 @@
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(377, 383);
+            this.NextButton.Location = new System.Drawing.Point(309, 383);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(75, 23);
             this.NextButton.TabIndex = 31;
@@ -378,7 +393,7 @@
             // 
             // PreviousButton
             // 
-            this.PreviousButton.Location = new System.Drawing.Point(303, 383);
+            this.PreviousButton.Location = new System.Drawing.Point(235, 383);
             this.PreviousButton.Name = "PreviousButton";
             this.PreviousButton.Size = new System.Drawing.Size(75, 23);
             this.PreviousButton.TabIndex = 32;
@@ -396,19 +411,9 @@
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
-            // FavoriteButton
-            // 
-            this.FavoriteButton.Location = new System.Drawing.Point(229, 383);
-            this.FavoriteButton.Name = "FavoriteButton";
-            this.FavoriteButton.Size = new System.Drawing.Size(75, 23);
-            this.FavoriteButton.TabIndex = 34;
-            this.FavoriteButton.Text = "Favorite";
-            this.FavoriteButton.UseVisualStyleBackColor = true;
-            this.FavoriteButton.Click += new System.EventHandler(this.FavoriteButton_Click);
-            // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(451, 383);
+            this.DeleteButton.Location = new System.Drawing.Point(383, 383);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteButton.TabIndex = 35;
@@ -434,7 +439,7 @@
             // 
             // ResetSearchButton
             // 
-            this.ResetSearchButton.Location = new System.Drawing.Point(525, 383);
+            this.ResetSearchButton.Location = new System.Drawing.Point(457, 383);
             this.ResetSearchButton.Name = "ResetSearchButton";
             this.ResetSearchButton.Size = new System.Drawing.Size(81, 23);
             this.ResetSearchButton.TabIndex = 38;
@@ -442,15 +447,236 @@
             this.ResetSearchButton.UseVisualStyleBackColor = true;
             this.ResetSearchButton.Click += new System.EventHandler(this.ResetSearchButton_Click);
             // 
+            // FavoriteCheck
+            // 
+            this.FavoriteCheck.AutoSize = true;
+            this.FavoriteCheck.Enabled = false;
+            this.FavoriteCheck.Location = new System.Drawing.Point(114, 315);
+            this.FavoriteCheck.Name = "FavoriteCheck";
+            this.FavoriteCheck.Size = new System.Drawing.Size(64, 17);
+            this.FavoriteCheck.TabIndex = 72;
+            this.FavoriteCheck.Text = "Favorite";
+            this.FavoriteCheck.UseVisualStyleBackColor = true;
+            this.FavoriteCheck.Visible = false;
+            this.FavoriteCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // AhegaoCheck
+            // 
+            this.AhegaoCheck.AutoSize = true;
+            this.AhegaoCheck.Enabled = false;
+            this.AhegaoCheck.Location = new System.Drawing.Point(114, 293);
+            this.AhegaoCheck.Name = "AhegaoCheck";
+            this.AhegaoCheck.Size = new System.Drawing.Size(63, 17);
+            this.AhegaoCheck.TabIndex = 71;
+            this.AhegaoCheck.Text = "Ahegao";
+            this.AhegaoCheck.UseVisualStyleBackColor = true;
+            this.AhegaoCheck.Visible = false;
+            this.AhegaoCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // TouhouCheck
+            // 
+            this.TouhouCheck.AutoSize = true;
+            this.TouhouCheck.Enabled = false;
+            this.TouhouCheck.Location = new System.Drawing.Point(114, 271);
+            this.TouhouCheck.Name = "TouhouCheck";
+            this.TouhouCheck.Size = new System.Drawing.Size(63, 17);
+            this.TouhouCheck.TabIndex = 70;
+            this.TouhouCheck.Text = "Touhou";
+            this.TouhouCheck.UseVisualStyleBackColor = true;
+            this.TouhouCheck.Visible = false;
+            this.TouhouCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // AnalCheck
+            // 
+            this.AnalCheck.AutoSize = true;
+            this.AnalCheck.Enabled = false;
+            this.AnalCheck.Location = new System.Drawing.Point(114, 183);
+            this.AnalCheck.Name = "AnalCheck";
+            this.AnalCheck.Size = new System.Drawing.Size(47, 17);
+            this.AnalCheck.TabIndex = 69;
+            this.AnalCheck.Text = "Anal";
+            this.AnalCheck.UseVisualStyleBackColor = true;
+            this.AnalCheck.Visible = false;
+            this.AnalCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // BlowJobCheck
+            // 
+            this.BlowJobCheck.AutoSize = true;
+            this.BlowJobCheck.Enabled = false;
+            this.BlowJobCheck.Location = new System.Drawing.Point(114, 161);
+            this.BlowJobCheck.Name = "BlowJobCheck";
+            this.BlowJobCheck.Size = new System.Drawing.Size(66, 17);
+            this.BlowJobCheck.TabIndex = 68;
+            this.BlowJobCheck.Text = "BlowJob";
+            this.BlowJobCheck.UseVisualStyleBackColor = true;
+            this.BlowJobCheck.Visible = false;
+            this.BlowJobCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // LoliCheck
+            // 
+            this.LoliCheck.AutoSize = true;
+            this.LoliCheck.Enabled = false;
+            this.LoliCheck.Location = new System.Drawing.Point(114, 7);
+            this.LoliCheck.Name = "LoliCheck";
+            this.LoliCheck.Size = new System.Drawing.Size(42, 17);
+            this.LoliCheck.TabIndex = 67;
+            this.LoliCheck.Text = "Loli";
+            this.LoliCheck.UseVisualStyleBackColor = true;
+            this.LoliCheck.Visible = false;
+            this.LoliCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // BoatCheck
+            // 
+            this.BoatCheck.AutoSize = true;
+            this.BoatCheck.Enabled = false;
+            this.BoatCheck.Location = new System.Drawing.Point(114, 249);
+            this.BoatCheck.Name = "BoatCheck";
+            this.BoatCheck.Size = new System.Drawing.Size(48, 17);
+            this.BoatCheck.TabIndex = 66;
+            this.BoatCheck.Text = "Boat";
+            this.BoatCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.BoatCheck.UseVisualStyleBackColor = true;
+            this.BoatCheck.Visible = false;
+            this.BoatCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // bigbreastCheck
+            // 
+            this.bigbreastCheck.AutoSize = true;
+            this.bigbreastCheck.Enabled = false;
+            this.bigbreastCheck.Location = new System.Drawing.Point(114, 73);
+            this.bigbreastCheck.Name = "bigbreastCheck";
+            this.bigbreastCheck.Size = new System.Drawing.Size(79, 17);
+            this.bigbreastCheck.TabIndex = 65;
+            this.bigbreastCheck.Text = "Big Breasts";
+            this.bigbreastCheck.UseVisualStyleBackColor = true;
+            this.bigbreastCheck.Visible = false;
+            this.bigbreastCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // ToysCheck
+            // 
+            this.ToysCheck.AutoSize = true;
+            this.ToysCheck.Enabled = false;
+            this.ToysCheck.Location = new System.Drawing.Point(114, 205);
+            this.ToysCheck.Name = "ToysCheck";
+            this.ToysCheck.Size = new System.Drawing.Size(49, 17);
+            this.ToysCheck.TabIndex = 64;
+            this.ToysCheck.Text = "Toys";
+            this.ToysCheck.UseVisualStyleBackColor = true;
+            this.ToysCheck.Visible = false;
+            this.ToysCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // SoloCheck
+            // 
+            this.SoloCheck.AutoSize = true;
+            this.SoloCheck.Enabled = false;
+            this.SoloCheck.Location = new System.Drawing.Point(114, 29);
+            this.SoloCheck.Name = "SoloCheck";
+            this.SoloCheck.Size = new System.Drawing.Size(47, 17);
+            this.SoloCheck.TabIndex = 63;
+            this.SoloCheck.Text = "Solo";
+            this.SoloCheck.UseVisualStyleBackColor = true;
+            this.SoloCheck.Visible = false;
+            this.SoloCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // TentacleCheck
+            // 
+            this.TentacleCheck.AutoSize = true;
+            this.TentacleCheck.Enabled = false;
+            this.TentacleCheck.Location = new System.Drawing.Point(114, 227);
+            this.TentacleCheck.Name = "TentacleCheck";
+            this.TentacleCheck.Size = new System.Drawing.Size(73, 17);
+            this.TentacleCheck.TabIndex = 62;
+            this.TentacleCheck.Text = "Tentacles";
+            this.TentacleCheck.UseVisualStyleBackColor = true;
+            this.TentacleCheck.Visible = false;
+            this.TentacleCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // MasturbationCheck
+            // 
+            this.MasturbationCheck.AutoSize = true;
+            this.MasturbationCheck.Enabled = false;
+            this.MasturbationCheck.Location = new System.Drawing.Point(114, 51);
+            this.MasturbationCheck.Name = "MasturbationCheck";
+            this.MasturbationCheck.Size = new System.Drawing.Size(87, 17);
+            this.MasturbationCheck.TabIndex = 61;
+            this.MasturbationCheck.Text = "Masturbation";
+            this.MasturbationCheck.UseVisualStyleBackColor = true;
+            this.MasturbationCheck.Visible = false;
+            this.MasturbationCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // NonhCheck
+            // 
+            this.NonhCheck.AutoSize = true;
+            this.NonhCheck.Enabled = false;
+            this.NonhCheck.Location = new System.Drawing.Point(114, 117);
+            this.NonhCheck.Name = "NonhCheck";
+            this.NonhCheck.Size = new System.Drawing.Size(55, 17);
+            this.NonhCheck.TabIndex = 60;
+            this.NonhCheck.Text = "Non-h";
+            this.NonhCheck.UseVisualStyleBackColor = true;
+            this.NonhCheck.Visible = false;
+            this.NonhCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // KemonomimiCheck
+            // 
+            this.KemonomimiCheck.AutoSize = true;
+            this.KemonomimiCheck.Enabled = false;
+            this.KemonomimiCheck.Location = new System.Drawing.Point(114, 139);
+            this.KemonomimiCheck.Name = "KemonomimiCheck";
+            this.KemonomimiCheck.Size = new System.Drawing.Size(85, 17);
+            this.KemonomimiCheck.TabIndex = 59;
+            this.KemonomimiCheck.Text = "Kemonomimi";
+            this.KemonomimiCheck.UseVisualStyleBackColor = true;
+            this.KemonomimiCheck.Visible = false;
+            this.KemonomimiCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // YuriCheck
+            // 
+            this.YuriCheck.AutoSize = true;
+            this.YuriCheck.Enabled = false;
+            this.YuriCheck.Location = new System.Drawing.Point(114, 95);
+            this.YuriCheck.Name = "YuriCheck";
+            this.YuriCheck.Size = new System.Drawing.Size(44, 17);
+            this.YuriCheck.TabIndex = 58;
+            this.YuriCheck.Text = "Yuri";
+            this.YuriCheck.UseVisualStyleBackColor = true;
+            this.YuriCheck.Visible = false;
+            this.YuriCheck.Click += new System.EventHandler(this.CheckBoxChanged);
+            // 
+            // ShowTagsButton
+            // 
+            this.ShowTagsButton.Location = new System.Drawing.Point(537, 383);
+            this.ShowTagsButton.Name = "ShowTagsButton";
+            this.ShowTagsButton.Size = new System.Drawing.Size(72, 23);
+            this.ShowTagsButton.TabIndex = 73;
+            this.ShowTagsButton.Text = "Show Tags";
+            this.ShowTagsButton.UseVisualStyleBackColor = true;
+            this.ShowTagsButton.Click += new System.EventHandler(this.ShowTagsButton_click);
+            // 
             // ViewDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ShowTagsButton);
+            this.Controls.Add(this.FavoriteCheck);
+            this.Controls.Add(this.AhegaoCheck);
+            this.Controls.Add(this.TouhouCheck);
+            this.Controls.Add(this.AnalCheck);
+            this.Controls.Add(this.BlowJobCheck);
+            this.Controls.Add(this.LoliCheck);
+            this.Controls.Add(this.BoatCheck);
+            this.Controls.Add(this.bigbreastCheck);
+            this.Controls.Add(this.ToysCheck);
+            this.Controls.Add(this.SoloCheck);
+            this.Controls.Add(this.TentacleCheck);
+            this.Controls.Add(this.MasturbationCheck);
+            this.Controls.Add(this.NonhCheck);
+            this.Controls.Add(this.KemonomimiCheck);
+            this.Controls.Add(this.YuriCheck);
             this.Controls.Add(this.ResetSearchButton);
             this.Controls.Add(this.CurrentImageLabel);
             this.Controls.Add(this.SearchResultLabel);
             this.Controls.Add(this.DeleteButton);
-            this.Controls.Add(this.FavoriteButton);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.NextButton);
@@ -486,7 +712,8 @@
             this.Controls.Add(this.LoliButton);
             this.Controls.Add(this.hentaiPicBox);
             this.Name = "ViewDatabase";
-            this.Size = new System.Drawing.Size(669, 409);
+            this.Size = new System.Drawing.Size(669, 414);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ViewDatabase_KeyUp);
             this.Leave += new System.EventHandler(this.ViewDatabase_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.hentaiPicBox)).EndInit();
             this.ResumeLayout(false);
@@ -530,10 +757,25 @@
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button PreviousButton;
         private System.Windows.Forms.Button SearchButton;
-        private System.Windows.Forms.Button FavoriteButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Label SearchResultLabel;
         private System.Windows.Forms.Label CurrentImageLabel;
         private System.Windows.Forms.Button ResetSearchButton;
+        private System.Windows.Forms.CheckBox FavoriteCheck;
+        private System.Windows.Forms.CheckBox AhegaoCheck;
+        private System.Windows.Forms.CheckBox TouhouCheck;
+        private System.Windows.Forms.CheckBox AnalCheck;
+        private System.Windows.Forms.CheckBox BlowJobCheck;
+        private System.Windows.Forms.CheckBox LoliCheck;
+        private System.Windows.Forms.CheckBox BoatCheck;
+        private System.Windows.Forms.CheckBox bigbreastCheck;
+        private System.Windows.Forms.CheckBox ToysCheck;
+        private System.Windows.Forms.CheckBox SoloCheck;
+        private System.Windows.Forms.CheckBox TentacleCheck;
+        private System.Windows.Forms.CheckBox MasturbationCheck;
+        private System.Windows.Forms.CheckBox NonhCheck;
+        private System.Windows.Forms.CheckBox KemonomimiCheck;
+        private System.Windows.Forms.CheckBox YuriCheck;
+        private System.Windows.Forms.Button ShowTagsButton;
     }
 }
