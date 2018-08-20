@@ -412,13 +412,18 @@ namespace BentaiDataBase
                 {
                     foreach (KeyValuePair<int, Dictionary<string, int>> imageId in imageTags)
                     {
-                        string sqlCommandString = $"update imageData set favorite = 1 where imageId = {imageId}";
-                        SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                        sqlCommand.ExecuteNonQuery();
+                        foreach (KeyValuePair<string, int> tag in imageId.Value)
+                        {
+                            if (initialImageTags[imageId.Key][tag.key] == tag.Value)
+                            {
+                                string sqlCommandString = $"UPDATE imageData SET {tag.Value} = 1 WHERE imageId = {imageId.Key}";
+                                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                                sqlCommand.ExecuteNonQuery();
+                            }
+                        }
                     }
                     transation.Commit();
                 }
-
             }
 
             if (imagesToDelete.Count != 0)
