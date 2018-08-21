@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -410,19 +410,7 @@ namespace BentaiDataBase
             {
                 using (var transation = sqlConnection.BeginTransaction())
                 {
-                    foreach (KeyValuePair<int, Dictionary<string, int>> imageId in imageTags)
-                    {
-                        foreach (KeyValuePair<string, int> tag in imageId.Value)
-                        {
-                            if (initialImageTags[imageId.Key][tag.key] == tag.Value)
-                            {
-                                string sqlCommandString = $"UPDATE imageData SET {tag.Value} = 1 WHERE imageId = {imageId.Key}";
-                                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                                sqlCommand.ExecuteNonQuery();
-                            }
-                        }
-                    }
-                    transation.Commit();
+
                 }
             }
 
