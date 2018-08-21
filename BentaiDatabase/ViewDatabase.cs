@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 
 namespace BentaiDataBase
 {
@@ -24,7 +25,10 @@ namespace BentaiDataBase
         }
         #endregion
 
-        private Dictionary<int, string> buttonStates = new Dictionary<int, string>()
+        //TODO no more ty-catch
+        //TODO Keep images when switching pages by cloning the picture
+
+        private readonly Dictionary<int, string> buttonStates = new Dictionary<int, string>()
         {
             {0, "No" },
             {1, "Any" },
@@ -412,13 +416,18 @@ namespace BentaiDataBase
                 {
                     foreach (KeyValuePair<int, Dictionary<string, int>> imageId in imageTags)
                     {
-                        string sqlCommandString = $"update imageData set favorite = 1 where imageId = {imageId}";
-                        SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                        sqlCommand.ExecuteNonQuery();
+                        foreach (KeyValuePair<string, int> tag in imageId.Value)
+                        {
+                            if (initialImageTags[imageId.Key][tag.Key] != tag.Value)
+                            {
+                                string sqlCommandString = $"UPDATE imageData SET {tag.Key} = 1 WHERE imageId = {imageId.Key}";
+                                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                                sqlCommand.ExecuteNonQuery();
+                            }
+                        }
                     }
                     transation.Commit();
                 }
-
             }
 
             if (imagesToDelete.Count != 0)
@@ -542,7 +551,8 @@ namespace BentaiDataBase
                     { "favorite", (int)sqlReader["favorite"] }
                 };
                 imageTags.Add((int)sqlReader["imageId"], rowValues);
-                initialImageTags.Add((int)sqlReader["imageId"], rowValues);
+                initialImageTags.Add((int)sqlReader["imageId"], rowValues.ToDictionary(entry => entry.Key,
+                                               entry => entry.Value));
             }
         }
 
