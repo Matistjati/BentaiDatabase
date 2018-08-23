@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace BentaiDataBase
 {
@@ -28,28 +28,15 @@ namespace BentaiDataBase
         //TODO no more ty-catch
         //TODO Keep images when switching pages by cloning the picture
 
-        private readonly Dictionary<int, string> buttonStates = new Dictionary<int, string>()
+        private readonly string[] buttonStates = new string[]
         {
-            {0, "No" },
-            {1, "Any" },
-            {2, "Yes" }
+            "Any",
+            "Yes",
+            "No"
         };
 
-        private int LoliCheckState = 1;
-        private int SoloCheckState = 1;
-        private int MasturbationCheckState = 1;
-        private int BigBreastCheckState = 1;
-        private int YuriCheckState = 1;
-        private int NonHCheckState = 1;
-        private int KemonomimicheckState = 1;
-        private int BlowJobCheckState = 1;
-        private int AnalCheckState = 1;
-        private int ToysCheckState = 1;
-        private int TentaclesCheckState = 1;
-        private int BoatCheckState = 1;
-        private int TouhouCheckState = 1;
-        private int AhegaoCheckState = 1;
-        private int FavoritesCheckState = 1;
+        private sbyte LoliCheckState, SoloCheckState, MasturbationCheckState, BigBreastCheckState, YuriCheckState, NonHCheckState, KemonomimicheckState, BlowJobCheckState, AnalCheckState,
+        ToysCheckState, TentaclesCheckState, BoatCheckState, TouhouCheckState, AhegaoCheckState, FavoritesCheckState;
 
         private string scriptDirectory;
         private List<int> imageIds = new List<int>();
@@ -64,10 +51,10 @@ namespace BentaiDataBase
 
         private void LoadNewPic(int pictureId)
         {
-            string imageType = TestPicId(pictureId);
-            if (!string.IsNullOrEmpty(imageType))
+            string imageExtension = TestPicId(pictureId);
+            if (!string.IsNullOrEmpty(imageExtension))
             {
-                using (var sourceImage = Image.FromFile(Path.Combine(scriptDirectory, $@"Images\{pictureId}.{imageType}")))
+                using (var sourceImage = Image.FromFile(Path.Combine(scriptDirectory, $@"Images\{pictureId}.{imageExtension}")))
                 {
                     var targetImage = new Bitmap(sourceImage.Width, sourceImage.Height,
                       System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -80,27 +67,21 @@ namespace BentaiDataBase
             }
         }
 
+        private readonly string[] picExtensions = { "png", "jpg", "jpeg" };
         private string TestPicId(int picId)
         {
-            try
+            string imagePath;
+            for (int i = 0; i < picExtensions.Length; i++)
             {
-                Image imageToLoad = Image.FromFile(Path.Combine(scriptDirectory, string.Format(@"Images\{0}.png", picId)));
-                imageToLoad.Dispose();
-                return "png";
-            }
-            catch (FileNotFoundException)
-            {
-                try
+                imagePath = Path.Combine(scriptDirectory, $@"Images\{picId}.{picExtensions[i]}");
+                if (File.Exists(imagePath))
                 {
-                    Image imageToLoad = Image.FromFile(Path.Combine(scriptDirectory, string.Format(@"Images\{0}.jpg", picId)));
+                    Image imageToLoad = Image.FromFile(imagePath);
                     imageToLoad.Dispose();
-                    return "jpg";
-                }
-                catch (Exception)
-                {
-                    return "";
+                    return picExtensions[i];
                 }
             }
+            return "";
         }
 
         public ViewDatabase()
@@ -115,73 +96,79 @@ namespace BentaiDataBase
             };
 
             tagCheckBoxes = new CheckBox[]
-{
+            {
                 YuriCheck, KemonomimiCheck, NonhCheck, MasturbationCheck, TentacleCheck, SoloCheck,
                 ToysCheck, bigbreastCheck, BoatCheck, LoliCheck, BlowJobCheck, AnalCheck,
                 TouhouCheck, AhegaoCheck, FavoriteCheck
             };
 
-            scriptDirectory = System.IO.Directory.GetCurrentDirectory();
+            scriptDirectory = Directory.GetCurrentDirectory();
 
             sqlConnection = new SQLiteConnection($@"Data Source ={scriptDirectory}\Imagedata\images.sqlite; version = 3");
             sqlConnection.Open();
         }
 
-        #region ButtonUpdates
+        #region SearchButtonTextUpdates
 
-        private void changeLabel(Label associatedLabel, ref int checkState)
+        private void changeLabelText(Label associatedLabel, ref sbyte checkState)
         {
+            /*
+             * {0, "No" },
+             * {1, "Any" },
+             * {2, "Yes" }
+             */
             checkState++;
-            try
+            // The current label's state
+            switch (checkState)
             {
-                associatedLabel.Text = buttonStates[checkState];
-                switch (associatedLabel.Text)
-                {
-                    case "Any":
-                        associatedLabel.ForeColor = Color.Empty;
-                        break;
-                    case "Yes":
-                        associatedLabel.ForeColor = Color.Green;
-                        break;
-                }
-            }
-            catch (KeyNotFoundException)
-            {
-                checkState = 0;
-                associatedLabel.Text = buttonStates[checkState];
-                associatedLabel.ForeColor = Color.Red;
+                case 0:
+                    associatedLabel.Text = buttonStates[checkState];
+                    associatedLabel.ForeColor = Color.Empty;
+                    break;
+
+                case 1:
+                    associatedLabel.Text = buttonStates[checkState];
+                    associatedLabel.ForeColor = Color.Green;
+                    break;
+
+                case 2:
+                    associatedLabel.Text = buttonStates[checkState];
+                    associatedLabel.ForeColor = Color.Red;
+                    // CheckState will be incremented by one, but we still want to trigger case 0
+                    checkState = -1;
+                    break;
             }
         }
 
-        private void LoliButton_Click(object sender, EventArgs e) => changeLabel(LoliLabel, ref LoliCheckState);
+        private void LoliButton_Click(object sender, EventArgs e) => changeLabelText(LoliLabel, ref LoliCheckState);
 
-        private void SoloButton_Click(object sender, EventArgs e) => changeLabel(SoloLabel, ref SoloCheckState);
+        private void SoloButton_Click(object sender, EventArgs e) => changeLabelText(SoloLabel, ref SoloCheckState);
 
-        private void MasturbationButton_Click(object sender, EventArgs e) => changeLabel(MasturbationLabel, ref MasturbationCheckState);
+        private void MasturbationButton_Click(object sender, EventArgs e) => changeLabelText(MasturbationLabel, ref MasturbationCheckState);
 
-        private void BigBreastsButton_Click(object sender, EventArgs e) => changeLabel(BigBreastsLabel, ref BigBreastCheckState);
+        private void BigBreastsButton_Click(object sender, EventArgs e) => changeLabelText(BigBreastsLabel, ref BigBreastCheckState);
 
-        private void YuriButton_Click(object sender, EventArgs e) => changeLabel(YuriLabel, ref YuriCheckState);
+        private void YuriButton_Click(object sender, EventArgs e) => changeLabelText(YuriLabel, ref YuriCheckState);
 
-        private void NonHButton_Click(object sender, EventArgs e) => changeLabel(NonHLabel, ref NonHCheckState);
+        private void NonHButton_Click(object sender, EventArgs e) => changeLabelText(NonHLabel, ref NonHCheckState);
 
-        private void KemonomimiButton_Click(object sender, EventArgs e) => changeLabel(KemonomimiLabel, ref KemonomimicheckState);
+        private void KemonomimiButton_Click(object sender, EventArgs e) => changeLabelText(KemonomimiLabel, ref KemonomimicheckState);
 
-        private void BlowJobButton_Click(object sender, EventArgs e) => changeLabel(BlowJobLabel, ref BlowJobCheckState);
+        private void BlowJobButton_Click(object sender, EventArgs e) => changeLabelText(BlowJobLabel, ref BlowJobCheckState);
 
-        private void AnalButton_Click(object sender, EventArgs e) => changeLabel(AnalLabel, ref AnalCheckState);
+        private void AnalButton_Click(object sender, EventArgs e) => changeLabelText(AnalLabel, ref AnalCheckState);
 
-        private void ToysButton_Click(object sender, EventArgs e) => changeLabel(ToysLabel, ref ToysCheckState);
+        private void ToysButton_Click(object sender, EventArgs e) => changeLabelText(ToysLabel, ref ToysCheckState);
 
-        private void TentaclesButton_Click(object sender, EventArgs e) => changeLabel(TentaclesLabel, ref TentaclesCheckState);
+        private void TentaclesButton_Click(object sender, EventArgs e) => changeLabelText(TentaclesLabel, ref TentaclesCheckState);
 
-        private void BoatButton_Click(object sender, EventArgs e) => changeLabel(BoatLabel, ref BoatCheckState);
+        private void BoatButton_Click(object sender, EventArgs e) => changeLabelText(BoatLabel, ref BoatCheckState);
 
-        private void TouhouButton_Click(object sender, EventArgs e) => changeLabel(TouhouLabel, ref TouhouCheckState);
+        private void TouhouButton_Click(object sender, EventArgs e) => changeLabelText(TouhouLabel, ref TouhouCheckState);
 
-        private void AhegaoButton_Click(object sender, EventArgs e) => changeLabel(AhegaoLabel, ref AhegaoCheckState);
+        private void AhegaoButton_Click(object sender, EventArgs e) => changeLabelText(AhegaoLabel, ref AhegaoCheckState);
 
-        private void FavoritesButton_Click(object sender, EventArgs e) => changeLabel(FavoritesLabel, ref FavoritesCheckState);
+        private void FavoritesButton_Click(object sender, EventArgs e) => changeLabelText(FavoritesLabel, ref FavoritesCheckState);
 
         #endregion
 
@@ -433,11 +420,10 @@ namespace BentaiDataBase
 
             if (imagesToDelete.Count != 0)
             {
-                try
+                if (hentaiPicBox.Image != null)
                 {
                     hentaiPicBox.Image.Dispose();
                 }
-                catch (NullReferenceException) { }
 
                 hentaiPicBox.Image = null;
                 foreach (int imageId in imagesToDelete)
@@ -452,14 +438,17 @@ namespace BentaiDataBase
                     }
                 }
             }
+
+            // We do not need to clear the image search as we use a duplicated image so that no problems arise
+            // (for example when trying to delete a picture)
             imagesToDelete.Clear();
-            imageIds.Clear();
-            hentaiPicBox.Image = null;
-            currentImage = 0;
+            //imageIds.Clear();
+            //hentaiPicBox.Image = null;
+            //currentImage = 0;
             imageTags.Clear();
             initialImageTags.Clear();
-            SearchResultLabel.Text = "";
-            CurrentImageLabel.Text = "";
+            //SearchResultLabel.Text = "";
+            //CurrentImageLabel.Text = "";
 
             foreach (CheckBox tagCheckBox in tagCheckBoxes)
             {
@@ -469,14 +458,16 @@ namespace BentaiDataBase
 
         private void ResetSearchButton_Click(object sender, EventArgs e)
         {
+            // We do not need to clear the image search as we use a duplicated image so that no problems arise
+            // (for example when trying to delete a picture)
             imagesToDelete.Clear();
-            imageIds.Clear();
-            hentaiPicBox.Image = null;
-            currentImage = 0;
+            //imageIds.Clear();
+            //hentaiPicBox.Image = null;
+            //currentImage = 0;
             imageTags.Clear();
             initialImageTags.Clear();
-            SearchResultLabel.Text = "";
-            CurrentImageLabel.Text = "";
+            //SearchResultLabel.Text = "";
+            //CurrentImageLabel.Text = "";
 
             foreach (CheckBox tagCheckBox in tagCheckBoxes)
             {
@@ -559,7 +550,7 @@ namespace BentaiDataBase
 
         private void ViewDatabase_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)  
+            switch (e.KeyCode)
             {
                 case Keys.Right:
                     NextButton_Click(sender, e);

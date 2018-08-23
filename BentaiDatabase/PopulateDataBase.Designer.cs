@@ -100,7 +100,7 @@
             this.NonhCheck = new System.Windows.Forms.CheckBox();
             this.KemonomimiCheck = new System.Windows.Forms.CheckBox();
             this.YuriCheck = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SubmitTags = new System.Windows.Forms.Button();
@@ -112,9 +112,9 @@
             // 
             // saveFilesButton
             // 
-            this.saveFilesButton.Location = new System.Drawing.Point(165, 362);
+            this.saveFilesButton.Location = new System.Drawing.Point(5, 377);
             this.saveFilesButton.Name = "saveFilesButton";
-            this.saveFilesButton.Size = new System.Drawing.Size(66, 23);
+            this.saveFilesButton.Size = new System.Drawing.Size(60, 23);
             this.saveFilesButton.TabIndex = 55;
             this.saveFilesButton.Text = "Save";
             this.saveFilesButton.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             // AhegaoCheck
             // 
             this.AhegaoCheck.AutoSize = true;
-            this.AhegaoCheck.Location = new System.Drawing.Point(105, 265);
+            this.AhegaoCheck.Location = new System.Drawing.Point(92, 249);
             this.AhegaoCheck.Name = "AhegaoCheck";
             this.AhegaoCheck.Size = new System.Drawing.Size(63, 17);
             this.AhegaoCheck.TabIndex = 54;
@@ -134,7 +134,7 @@
             // QueueLabel
             // 
             this.QueueLabel.AutoSize = true;
-            this.QueueLabel.Location = new System.Drawing.Point(73, 107);
+            this.QueueLabel.Location = new System.Drawing.Point(60, 91);
             this.QueueLabel.Name = "QueueLabel";
             this.QueueLabel.Size = new System.Drawing.Size(10, 13);
             this.QueueLabel.TabIndex = 53;
@@ -143,7 +143,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 107);
+            this.label7.Location = new System.Drawing.Point(5, 91);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 52;
@@ -151,9 +151,9 @@
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Location = new System.Drawing.Point(165, 333);
+            this.AddFileButton.Location = new System.Drawing.Point(5, 353);
             this.AddFileButton.Name = "AddFileButton";
-            this.AddFileButton.Size = new System.Drawing.Size(66, 23);
+            this.AddFileButton.Size = new System.Drawing.Size(60, 23);
             this.AddFileButton.TabIndex = 51;
             this.AddFileButton.Text = "Add file";
             this.AddFileButton.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(18, 85);
+            this.label6.Location = new System.Drawing.Point(5, 69);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(177, 18);
             this.label6.TabIndex = 50;
@@ -173,17 +173,17 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(17, 67);
+            this.label5.Location = new System.Drawing.Point(4, 51);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 18);
+            this.label5.Size = new System.Drawing.Size(125, 18);
             this.label5.TabIndex = 49;
-            this.label5.Text = "Enter key to submit tags and picture";
+            this.label5.Text = "Enter key to submit";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 49);
+            this.label4.Location = new System.Drawing.Point(5, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(139, 18);
             this.label4.TabIndex = 48;
@@ -193,7 +193,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 26);
+            this.label3.Location = new System.Drawing.Point(4, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 19);
             this.label3.TabIndex = 47;
@@ -202,7 +202,7 @@
             // TouhouCheck
             // 
             this.TouhouCheck.AutoSize = true;
-            this.TouhouCheck.Location = new System.Drawing.Point(105, 241);
+            this.TouhouCheck.Location = new System.Drawing.Point(92, 225);
             this.TouhouCheck.Name = "TouhouCheck";
             this.TouhouCheck.Size = new System.Drawing.Size(63, 17);
             this.TouhouCheck.TabIndex = 46;
@@ -213,7 +213,7 @@
             // AnalCheck
             // 
             this.AnalCheck.AutoSize = true;
-            this.AnalCheck.Location = new System.Drawing.Point(105, 147);
+            this.AnalCheck.Location = new System.Drawing.Point(92, 131);
             this.AnalCheck.Name = "AnalCheck";
             this.AnalCheck.Size = new System.Drawing.Size(47, 17);
             this.AnalCheck.TabIndex = 45;
@@ -224,7 +224,7 @@
             // BlowJobCheck
             // 
             this.BlowJobCheck.AutoSize = true;
-            this.BlowJobCheck.Location = new System.Drawing.Point(18, 310);
+            this.BlowJobCheck.Location = new System.Drawing.Point(5, 294);
             this.BlowJobCheck.Name = "BlowJobCheck";
             this.BlowJobCheck.Size = new System.Drawing.Size(66, 17);
             this.BlowJobCheck.TabIndex = 44;
@@ -235,7 +235,7 @@
             // LoliCheck
             // 
             this.LoliCheck.AutoSize = true;
-            this.LoliCheck.Location = new System.Drawing.Point(18, 147);
+            this.LoliCheck.Location = new System.Drawing.Point(5, 131);
             this.LoliCheck.Name = "LoliCheck";
             this.LoliCheck.Size = new System.Drawing.Size(42, 17);
             this.LoliCheck.TabIndex = 43;
@@ -246,7 +246,7 @@
             // BoatCheck
             // 
             this.BoatCheck.AutoSize = true;
-            this.BoatCheck.Location = new System.Drawing.Point(105, 215);
+            this.BoatCheck.Location = new System.Drawing.Point(92, 199);
             this.BoatCheck.Name = "BoatCheck";
             this.BoatCheck.Size = new System.Drawing.Size(48, 17);
             this.BoatCheck.TabIndex = 42;
@@ -258,7 +258,7 @@
             // bigbreastCheck
             // 
             this.bigbreastCheck.AutoSize = true;
-            this.bigbreastCheck.Location = new System.Drawing.Point(19, 217);
+            this.bigbreastCheck.Location = new System.Drawing.Point(6, 201);
             this.bigbreastCheck.Name = "bigbreastCheck";
             this.bigbreastCheck.Size = new System.Drawing.Size(79, 17);
             this.bigbreastCheck.TabIndex = 41;
@@ -269,7 +269,7 @@
             // ToysCheck
             // 
             this.ToysCheck.AutoSize = true;
-            this.ToysCheck.Location = new System.Drawing.Point(105, 169);
+            this.ToysCheck.Location = new System.Drawing.Point(92, 153);
             this.ToysCheck.Name = "ToysCheck";
             this.ToysCheck.Size = new System.Drawing.Size(49, 17);
             this.ToysCheck.TabIndex = 40;
@@ -280,7 +280,7 @@
             // SoloCheck
             // 
             this.SoloCheck.AutoSize = true;
-            this.SoloCheck.Location = new System.Drawing.Point(18, 169);
+            this.SoloCheck.Location = new System.Drawing.Point(5, 153);
             this.SoloCheck.Name = "SoloCheck";
             this.SoloCheck.Size = new System.Drawing.Size(47, 17);
             this.SoloCheck.TabIndex = 39;
@@ -291,7 +291,7 @@
             // TentacleCheck
             // 
             this.TentacleCheck.AutoSize = true;
-            this.TentacleCheck.Location = new System.Drawing.Point(105, 192);
+            this.TentacleCheck.Location = new System.Drawing.Point(92, 176);
             this.TentacleCheck.Name = "TentacleCheck";
             this.TentacleCheck.Size = new System.Drawing.Size(73, 17);
             this.TentacleCheck.TabIndex = 38;
@@ -302,7 +302,7 @@
             // MasturbationCheck
             // 
             this.MasturbationCheck.AutoSize = true;
-            this.MasturbationCheck.Location = new System.Drawing.Point(18, 194);
+            this.MasturbationCheck.Location = new System.Drawing.Point(5, 178);
             this.MasturbationCheck.Name = "MasturbationCheck";
             this.MasturbationCheck.Size = new System.Drawing.Size(87, 17);
             this.MasturbationCheck.TabIndex = 37;
@@ -313,7 +313,7 @@
             // NonhCheck
             // 
             this.NonhCheck.AutoSize = true;
-            this.NonhCheck.Location = new System.Drawing.Point(18, 264);
+            this.NonhCheck.Location = new System.Drawing.Point(5, 248);
             this.NonhCheck.Name = "NonhCheck";
             this.NonhCheck.Size = new System.Drawing.Size(55, 17);
             this.NonhCheck.TabIndex = 36;
@@ -324,7 +324,7 @@
             // KemonomimiCheck
             // 
             this.KemonomimiCheck.AutoSize = true;
-            this.KemonomimiCheck.Location = new System.Drawing.Point(18, 287);
+            this.KemonomimiCheck.Location = new System.Drawing.Point(5, 271);
             this.KemonomimiCheck.Name = "KemonomimiCheck";
             this.KemonomimiCheck.Size = new System.Drawing.Size(85, 17);
             this.KemonomimiCheck.TabIndex = 35;
@@ -335,7 +335,7 @@
             // YuriCheck
             // 
             this.YuriCheck.AutoSize = true;
-            this.YuriCheck.Location = new System.Drawing.Point(19, 240);
+            this.YuriCheck.Location = new System.Drawing.Point(6, 224);
             this.YuriCheck.Name = "YuriCheck";
             this.YuriCheck.Size = new System.Drawing.Size(44, 17);
             this.YuriCheck.TabIndex = 34;
@@ -343,15 +343,15 @@
             this.YuriCheck.UseVisualStyleBackColor = true;
             this.YuriCheck.CheckedChanged += new System.EventHandler(this.CheckBoxChaged);
             // 
-            // button1
+            // DeleteButton
             // 
-            this.button1.Location = new System.Drawing.Point(237, 333);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Delete";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.DeleteButton.Location = new System.Drawing.Point(68, 353);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(60, 23);
+            this.DeleteButton.TabIndex = 33;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -366,7 +366,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 120);
+            this.label1.Location = new System.Drawing.Point(2, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 20);
             this.label1.TabIndex = 31;
@@ -376,9 +376,9 @@
             // 
             this.SubmitTags.Cursor = System.Windows.Forms.Cursors.No;
             this.SubmitTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SubmitTags.Location = new System.Drawing.Point(19, 333);
+            this.SubmitTags.Location = new System.Drawing.Point(5, 317);
             this.SubmitTags.Name = "SubmitTags";
-            this.SubmitTags.Size = new System.Drawing.Size(124, 52);
+            this.SubmitTags.Size = new System.Drawing.Size(124, 35);
             this.SubmitTags.TabIndex = 30;
             this.SubmitTags.Text = "Confirm";
             this.SubmitTags.UseVisualStyleBackColor = true;
@@ -386,7 +386,7 @@
             // 
             // SkipButton
             // 
-            this.SkipButton.Location = new System.Drawing.Point(238, 362);
+            this.SkipButton.Location = new System.Drawing.Point(68, 377);
             this.SkipButton.Name = "SkipButton";
             this.SkipButton.Size = new System.Drawing.Size(60, 23);
             this.SkipButton.TabIndex = 56;
@@ -396,9 +396,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(304, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(188, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(511, 434);
+            this.pictureBox1.Size = new System.Drawing.Size(627, 434);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 29;
             this.pictureBox1.TabStop = false;
@@ -406,7 +406,7 @@
             // FavoriteCheck
             // 
             this.FavoriteCheck.AutoSize = true;
-            this.FavoriteCheck.Location = new System.Drawing.Point(105, 289);
+            this.FavoriteCheck.Location = new System.Drawing.Point(92, 273);
             this.FavoriteCheck.Name = "FavoriteCheck";
             this.FavoriteCheck.Size = new System.Drawing.Size(64, 17);
             this.FavoriteCheck.TabIndex = 57;
@@ -442,7 +442,7 @@
             this.Controls.Add(this.NonhCheck);
             this.Controls.Add(this.KemonomimiCheck);
             this.Controls.Add(this.YuriCheck);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SubmitTags);
@@ -479,7 +479,7 @@
         private System.Windows.Forms.CheckBox NonhCheck;
         private System.Windows.Forms.CheckBox KemonomimiCheck;
         private System.Windows.Forms.CheckBox YuriCheck;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button SubmitTags;

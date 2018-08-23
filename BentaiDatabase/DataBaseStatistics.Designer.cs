@@ -50,6 +50,8 @@
             // DataBaseChart
             // 
             this.DataBaseChart.BackColor = System.Drawing.SystemColors.Control;
+            this.DataBaseChart.BackImageTransparentColor = System.Drawing.SystemColors.Control;
+            this.DataBaseChart.BackSecondaryColor = System.Drawing.SystemColors.Control;
             this.DataBaseChart.BorderlineColor = System.Drawing.SystemColors.Control;
             chartArea1.Name = "ChartArea1";
             this.DataBaseChart.ChartAreas.Add(chartArea1);
@@ -92,7 +94,6 @@
 
         private System.Windows.Forms.Button TagAmountsButton;
         private System.Windows.Forms.DataVisualization.Charting.Chart DataBaseChart;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.Label CurrentChartLabel;
     }
 }
