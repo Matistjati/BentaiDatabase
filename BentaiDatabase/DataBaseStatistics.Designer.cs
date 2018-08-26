@@ -57,7 +57,7 @@
             this.DataBaseChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.DataBaseChart.Legends.Add(legend1);
-            this.DataBaseChart.Location = new System.Drawing.Point(0, 0);
+            this.DataBaseChart.Location = new System.Drawing.Point(0, 5);
             this.DataBaseChart.Name = "DataBaseChart";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -70,7 +70,7 @@
             // CurrentChartLabel
             // 
             this.CurrentChartLabel.AutoSize = true;
-            this.CurrentChartLabel.Location = new System.Drawing.Point(4, 4);
+            this.CurrentChartLabel.Location = new System.Drawing.Point(-3, 0);
             this.CurrentChartLabel.Name = "CurrentChartLabel";
             this.CurrentChartLabel.Size = new System.Drawing.Size(0, 13);
             this.CurrentChartLabel.TabIndex = 2;

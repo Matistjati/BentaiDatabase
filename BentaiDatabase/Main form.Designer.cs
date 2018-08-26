@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Loli_in_form));
-            this.panel = new System.Windows.Forms.Panel();
+            this.UserControlPanel = new System.Windows.Forms.Panel();
             this.AddImagesButton = new System.Windows.Forms.Button();
             this.ViewImagesButton = new System.Windows.Forms.Button();
             this.DataStatisticsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // panel
+            // UserControlPanel
             // 
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(711, 405);
-            this.panel.TabIndex = 0;
+            this.UserControlPanel.Location = new System.Drawing.Point(0, 0);
+            this.UserControlPanel.Name = "UserControlPanel";
+            this.UserControlPanel.Size = new System.Drawing.Size(711, 405);
+            this.UserControlPanel.TabIndex = 0;
             // 
             // AddImagesButton
             // 
@@ -81,7 +81,7 @@
             this.Controls.Add(this.DataStatisticsButton);
             this.Controls.Add(this.ViewImagesButton);
             this.Controls.Add(this.AddImagesButton);
-            this.Controls.Add(this.panel);
+            this.Controls.Add(this.UserControlPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Loli_in_form";
@@ -94,11 +94,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Button AddImagesButton;
         private System.Windows.Forms.Button ViewImagesButton;
         private System.Windows.Forms.Button DataStatisticsButton;
+        public System.Windows.Forms.Panel UserControlPanel;
     }
 }
 

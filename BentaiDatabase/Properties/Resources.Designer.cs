@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BentaiDataBase.Properties {
+namespace BentaiDatabase.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BentaiDataBase.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WindowsFormsApp1.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BentaiDatabase.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace BentaiDataBase.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _60271_143469_0 {
+        internal static System.Drawing.Bitmap Sagiri_overload {
             get {
-                object obj = ResourceManager.GetObject("60271_143469_0", resourceCulture);
+                object obj = ResourceManager.GetObject("Sagiri overload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

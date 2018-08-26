@@ -46,7 +46,9 @@ namespace BentaiDataBase
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
-                Application.Run(new Loli_in_form());
+                Loli_in_form loliDatabase = new Loli_in_form();
+                loliDatabase.UserControlPanel.Controls.Add(Front_page.Instance);
+                Application.Run(loliDatabase);               
             }
             catch (System.ObjectDisposedException)
             {

@@ -26,7 +26,7 @@ namespace BentaiDataBase
 
         private void Loli_in_form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (panel.Controls.Contains(ViewDatabase.Instance))
+            if (UserControlPanel.Controls.Contains(ViewDatabase.Instance))
             {
                 ViewDatabase.Instance.ViewDatabase_Leave(sender, e);
             }
@@ -110,14 +110,14 @@ namespace BentaiDataBase
 
         public void EmptyPanel()
         {
-            this.panel.Controls.Clear();
+            this.UserControlPanel.Controls.Clear();
         }
 
         private void AddImagesButton_Click(object sender, EventArgs e)
         {
-            if (!panel.Controls.Contains(PopulateDataBase.Instance))
+            if (!UserControlPanel.Controls.Contains(PopulateDataBase.Instance))
             {
-                panel.Controls.Add(PopulateDataBase.Instance);
+                UserControlPanel.Controls.Add(PopulateDataBase.Instance);
                 PopulateDataBase.Instance.Dock = DockStyle.Fill;
                 PopulateDataBase.Instance.BringToFront();
             }
@@ -129,9 +129,9 @@ namespace BentaiDataBase
         
         private void ViewImagesButton_Click(object sender, EventArgs e)
         {
-            if (!panel.Controls.Contains(ViewDatabase.Instance))
+            if (!UserControlPanel.Controls.Contains(ViewDatabase.Instance))
             {
-                panel.Controls.Add(ViewDatabase.Instance);
+                UserControlPanel.Controls.Add(ViewDatabase.Instance);
                 ViewDatabase.Instance.Dock = DockStyle.Fill;
                 ViewDatabase.Instance.BringToFront();
                 ViewDatabase.Instance.ViewDatabase_Load();
@@ -144,9 +144,9 @@ namespace BentaiDataBase
 
         private void DataStatisticsButton_Click(object sender, EventArgs e)
         {
-            if (!panel.Controls.Contains(DataBaseStatistics.Instance))
+            if (!UserControlPanel.Controls.Contains(DataBaseStatistics.Instance))
             {
-                panel.Controls.Add(DataBaseStatistics.Instance);
+                UserControlPanel.Controls.Add(DataBaseStatistics.Instance);
                 DataBaseStatistics.Instance.Dock = DockStyle.Fill;
                 DataBaseStatistics.Instance.BringToFront();
             }
