@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BentaiDatabaseHandler.cs" />
     <Compile Include="DataBaseStatistics.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +98,7 @@
     <Compile Include="Front page.Designer.cs">
       <DependentUpon>Front page.cs</DependentUpon>
     </Compile>
+    <Compile Include="Globals.cs" />
     <Compile Include="Main form.cs">
       <SubType>Form</SubType>
     </Compile>

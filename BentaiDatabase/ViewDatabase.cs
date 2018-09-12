@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,9 +24,6 @@ namespace BentaiDataBase
         }
         #endregion
 
-        //TODO no more ty-catch
-        //TODO Keep images when switching pages by cloning the picture
-
         private readonly string[] buttonStates = new string[]
         {
             "Any",
@@ -35,53 +31,32 @@ namespace BentaiDataBase
             "No"
         };
 
-        private sbyte LoliCheckState, SoloCheckState, MasturbationCheckState, BigBreastCheckState, YuriCheckState, NonHCheckState, KemonomimicheckState, BlowJobCheckState, AnalCheckState,
-        ToysCheckState, TentaclesCheckState, BoatCheckState, TouhouCheckState, AhegaoCheckState, FavoritesCheckState;
+        private sbyte LoliCheckState, SoloCheckState, MasturbationCheckState, BigBreastCheckState, YuriCheckState, NonHCheckState,
+        KemonomimicheckState, BlowJobCheckState, AnalCheckState, ToysCheckState, TentaclesCheckState, BoatCheckState, TouhouCheckState,
+        AhegaoCheckState, FavoritesCheckState;
 
-        private string scriptDirectory;
         private List<int> imageIds = new List<int>();
         private int currentImage;
         private List<int> imagesToDelete = new List<int>();
+
         public Label[] tagLabels;
         public CheckBox[] tagCheckBoxes;
 
-        public SQLiteConnection sqlConnection;
         private Dictionary<int, Dictionary<string, int>> imageTags = new Dictionary<int, Dictionary<string, int>>();
         private Dictionary<int, Dictionary<string, int>> initialImageTags = new Dictionary<int, Dictionary<string, int>>();
 
         private void LoadNewPic(int pictureId)
         {
-            string imageExtension = TestPicId(pictureId);
-            if (!string.IsNullOrEmpty(imageExtension))
+            using (var sourceImage = BentaiDataBaseHandler.GetImage(pictureId))
             {
-                using (var sourceImage = Image.FromFile(Path.Combine(scriptDirectory, $@"Images\{pictureId}.{imageExtension}")))
+                var targetImage = new Bitmap(sourceImage.Width, sourceImage.Height,
+                  System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                using (var canvas = Graphics.FromImage(targetImage))
                 {
-                    var targetImage = new Bitmap(sourceImage.Width, sourceImage.Height,
-                      System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                    using (var canvas = Graphics.FromImage(targetImage))
-                    {
-                        canvas.DrawImageUnscaled(sourceImage, 0, 0);
-                    }
-                    hentaiPicBox.Image = targetImage;
+                    canvas.DrawImageUnscaled(sourceImage, 0, 0);
                 }
+                hentaiPicBox.Image = targetImage;
             }
-        }
-
-        private readonly string[] picExtensions = { "png", "jpg", "jpeg" };
-        private string TestPicId(int picId)
-        {
-            string imagePath;
-            for (int i = 0; i < picExtensions.Length; i++)
-            {
-                imagePath = Path.Combine(scriptDirectory, $@"Images\{picId}.{picExtensions[i]}");
-                if (File.Exists(imagePath))
-                {
-                    Image imageToLoad = Image.FromFile(imagePath);
-                    imageToLoad.Dispose();
-                    return picExtensions[i];
-                }
-            }
-            return "";
         }
 
         public ViewDatabase()
@@ -101,11 +76,6 @@ namespace BentaiDataBase
                 ToysCheck, bigbreastCheck, BoatCheck, LoliCheck, BlowJobCheck, AnalCheck,
                 TouhouCheck, AhegaoCheck, FavoriteCheck
             };
-
-            scriptDirectory = Directory.GetCurrentDirectory();
-
-            sqlConnection = new SQLiteConnection($@"Data Source ={scriptDirectory}\Imagedata\images.sqlite; version = 3");
-            sqlConnection.Open();
         }
 
         #region SearchButtonTextUpdates
@@ -172,6 +142,8 @@ namespace BentaiDataBase
 
         #endregion
 
+
+        // TODO fix this shit
         private void updateCheckboxes()
         {
             if (imageIds.Count == 0)
@@ -330,27 +302,27 @@ namespace BentaiDataBase
                 }
             }
 
-            try
+            
+            using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
             {
-                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                SQLiteDataReader sqlReader = sqlCommand.ExecuteReader();
-
-                while (sqlReader.Read())
+                sqlConnection.Open();
+                using (SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection))
+                using (SQLiteDataReader sqlReader = sqlCommand.ExecuteReader())
                 {
-                    int imageId = (int)sqlReader["imageId"];
-                    imageIds.Add(imageId);
-                }
+                    
+                    while (sqlReader.Read())
+                    {
+                        int imageId = (int)sqlReader["imageId"];
+                        imageIds.Add(imageId);
+                    }
 
-                if (imageIds.Count != 0)
-                {
-                    LoadNewPic(imageIds[currentImage]);
-                    CurrentImageLabel.Text = $"Image {currentImage + 1}/{imageIds.Count}";
+                    if (imageIds.Count != 0)
+                    {
+                        LoadNewPic(imageIds[currentImage]);
+                        CurrentImageLabel.Text = $"Image {currentImage + 1}/{imageIds.Count}";
+                    }
+                    SearchResultLabel.Text = $"{imageIds.Count} Results";
                 }
-                SearchResultLabel.Text = $"{imageIds.Count} Results";
-            }
-            catch (SQLiteException)
-            {
-                SearchResultLabel.Text = "0 Results";
             }
 
             updateCheckboxes();
@@ -399,75 +371,59 @@ namespace BentaiDataBase
         {
             if (imageTags.Count != 0)
             {
-                using (var transation = sqlConnection.BeginTransaction())
+                using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
                 {
-                    foreach (KeyValuePair<int, Dictionary<string, int>> imageId in imageTags)
+                    sqlConnection.Open();
+                    using (SQLiteTransaction transaction = sqlConnection.BeginTransaction())
                     {
-                        foreach (KeyValuePair<string, int> tag in imageId.Value)
+                        foreach (KeyValuePair<int, Dictionary<string, int>> imageId in imageTags)
                         {
-                            if (initialImageTags[imageId.Key][tag.Key] != tag.Value)
+                            foreach (KeyValuePair<string, int> tag in imageId.Value)
                             {
-                                string sqlCommandString = $"UPDATE imageData SET {tag.Key} = 1 WHERE imageId = {imageId.Key}";
+                                if (initialImageTags[imageId.Key][tag.Key] != tag.Value)
+                                {
+                                    string sqlCommandString = $"UPDATE imageData SET {tag.Key} = 1 WHERE imageId = {imageId.Key}";
 
-                                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                                    SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
+                                    sqlCommand.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                        transaction.Commit();
+                    }
+                }
+            }
+
+            // Deleting all the stuff the user wanted to delete
+            if (imagesToDelete.Count != 0)
+            {
+                using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
+                {
+                    sqlConnection.Open();
+                    using (SQLiteTransaction transaction = sqlConnection.BeginTransaction())
+                    {
+                        foreach (int imageId in imagesToDelete)
+                        {
+                            using (SQLiteCommand sqlCommand = new SQLiteCommand(sqlConnection))
+                            {
+                                sqlCommand.CommandText = $"DELETE from imageData where imageId = {imageId}";
                                 sqlCommand.ExecuteNonQuery();
                             }
                         }
-                    }
-                    transation.Commit();
-                }
-            }
-
-            if (imagesToDelete.Count != 0)
-            {
-                if (hentaiPicBox.Image != null)
-                {
-                    hentaiPicBox.Image.Dispose();
-                }
-
-                hentaiPicBox.Image = null;
-                foreach (int imageId in imagesToDelete)
-                {
-                    string fileExtension = TestPicId(imageId);
-                    if (!string.IsNullOrEmpty(fileExtension))
-                    {
-                        File.Delete(Path.Combine(scriptDirectory, $@"Images\{imageId}.{fileExtension}"));
-                        string sqlCommandString = $"delete from imageData where imageId = {imageId}";
-                        SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                        sqlCommand.ExecuteNonQuery();
+                        transaction.Commit();
                     }
                 }
             }
 
-            // We do not need to clear the image search as we use a duplicated image so that no problems arise
-            // (for example when trying to delete a picture)
-            imagesToDelete.Clear();
-            //imageIds.Clear();
-            //hentaiPicBox.Image = null;
-            //currentImage = 0;
-            imageTags.Clear();
-            initialImageTags.Clear();
-            //SearchResultLabel.Text = "";
-            //CurrentImageLabel.Text = "";
-
-            foreach (CheckBox tagCheckBox in tagCheckBoxes)
-            {
-                tagCheckBox.Checked = false;
-            }
+            ResetSearchButton_Click(sender, e);
         }
 
         private void ResetSearchButton_Click(object sender, EventArgs e)
         {
-            // We do not need to clear the image search as we use a duplicated image so that no problems arise
-            // (for example when trying to delete a picture)
+            // We do not need to dispose any images as loadnewpic duplicates the image
             imagesToDelete.Clear();
-            //imageIds.Clear();
-            //hentaiPicBox.Image = null;
-            //currentImage = 0;
             imageTags.Clear();
             initialImageTags.Clear();
-            //SearchResultLabel.Text = "";
-            //CurrentImageLabel.Text = "";
 
             foreach (CheckBox tagCheckBox in tagCheckBoxes)
             {
@@ -514,38 +470,44 @@ namespace BentaiDataBase
             }
         }
 
+        private const string SelectAllTags = "select imageId, yuri, kemonomimi, nonh, masturbation, tentacle, solo, toys, bigBreast, boat, loli, blowJob, anal, touhou, ahegao, favorite from imageData";
+
         public void ViewDatabase_Load()
         {
-            string sqlCommandString = "select imageId, yuri, kemonomimi, nonh, masturbation, tentacle, solo, toys, bigBreast, boat, " +
-            "loli, blowJob, anal, touhou, ahegao, favorite from imageData";
-
-            SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-            SQLiteDataReader sqlReader = sqlCommand.ExecuteReader();
-
-            while (sqlReader.Read())
+            using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
+            using (SQLiteCommand sqlCommand = new SQLiteCommand(SelectAllTags, sqlConnection))
             {
-                Dictionary<string, int> rowValues = new Dictionary<string, int>
+                sqlConnection.Open();
+                using (SQLiteDataReader sqlReader = sqlCommand.ExecuteReader())
                 {
-                    { "yuri", (int)sqlReader["yuri"] },
-                    { "kemonomimi", (int)sqlReader["kemonomimi"] },
-                    { "nonh", (int)sqlReader["nonh"] },
-                    { "masturbation", (int)sqlReader["masturbation"] },
-                    { "tentacle", (int)sqlReader["tentacle"] },
-                    { "solo", (int)sqlReader["solo"] },
-                    { "toys", (int)sqlReader["toys"] },
-                    { "bigBreast", (int)sqlReader["bigBreast"] },
-                    { "boat", (int)sqlReader["boat"] },
-                    { "loli", (int)sqlReader["loli"] },
-                    { "blowJob", (int)sqlReader["blowJob"] },
-                    { "anal", (int)sqlReader["anal"] },
-                    { "touhou", (int)sqlReader["touhou"] },
-                    { "ahegao", (int)sqlReader["ahegao"] },
-                    { "favorite", (int)sqlReader["favorite"] }
-                };
-                imageTags.Add((int)sqlReader["imageId"], rowValues);
-                initialImageTags.Add((int)sqlReader["imageId"], rowValues.ToDictionary(entry => entry.Key,
-                                               entry => entry.Value));
+                    sqlCommand.CommandText = SelectAllTags;
+                    while (sqlReader.Read())
+                    {
+                        Dictionary<string, int> rowValues = new Dictionary<string, int>
+                        {
+                            { "yuri", (int)sqlReader["yuri"] },
+                            { "kemonomimi", (int)sqlReader["kemonomimi"] },
+                            { "nonh", (int)sqlReader["nonh"] },
+                            { "masturbation", (int)sqlReader["masturbation"] },
+                            { "tentacle", (int)sqlReader["tentacle"] },
+                            { "solo", (int)sqlReader["solo"] },
+                            { "toys", (int)sqlReader["toys"] },
+                            { "bigBreast", (int)sqlReader["bigBreast"] },
+                            { "boat", (int)sqlReader["boat"] },
+                            { "loli", (int)sqlReader["loli"] },
+                            { "blowJob", (int)sqlReader["blowJob"] },
+                            { "anal", (int)sqlReader["anal"] },
+                            { "touhou", (int)sqlReader["touhou"] },
+                            { "ahegao", (int)sqlReader["ahegao"] },
+                            { "favorite", (int)sqlReader["favorite"] }
+                        };
+                        imageTags.Add((int)sqlReader["imageId"], rowValues);
+                        initialImageTags.Add((int)sqlReader["imageId"], rowValues.ToDictionary(entry => entry.Key,
+                                                       entry => entry.Value));
+                    }
+                }
             }
+
         }
 
         private void ViewDatabase_KeyUp(object sender, KeyEventArgs e)

@@ -13,47 +13,34 @@ namespace BentaiDataBase
         [STAThread]
         static void Main()
         {
-            string scriptDirectory;
-            SQLiteConnection sqlConnection;
+            string scriptDirectory = Globals.scriptDirectory;
 
-            scriptDirectory = Directory.GetCurrentDirectory();
-
-            if (!Directory.Exists(scriptDirectory + "\\Images"))
+            // Checking that all the necessary folders and files exist
+            if (!Directory.Exists($@"{scriptDirectory}\Images"))
             {
-                Directory.CreateDirectory(scriptDirectory + "\\Images");
+                Directory.CreateDirectory($@"{scriptDirectory}\Images");
             }
 
-            if (!Directory.Exists(scriptDirectory + "\\Imagedata"))
+            // Creating our databases table if it doesn't exist
+            using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
+            using (SQLiteCommand sqlCommand = new SQLiteCommand(sqlConnection))
             {
-                Directory.CreateDirectory(scriptDirectory + "\\Imagedata");
-            }
+                sqlConnection.Open();
 
-            sqlConnection = new SQLiteConnection($@"Data Source={scriptDirectory}\Imagedata\images.sqlite;version=3");
-            sqlConnection.Open();
-
-            try
-            {
-                // trying to create the table
-                string sql_command = "CREATE TABLE imageData (imageId INT, yuri INT, loli INT,  kemonomimi INT, nonh INT," +
+                sqlCommand.CommandText = "CREATE TABLE IF NOT EXISTS imageData (imageId INT, yuri INT, loli INT,  kemonomimi INT, nonh INT," +
                     "masturbation INT, tentacle INT, solo INT, toys INT, bigBreast INT, boat INT, blowJob INT, anal INT, " +
-                    "touhou INT, ahegao INT, favorite INT)";
-                SQLiteCommand command = new SQLiteCommand(sql_command, sqlConnection);
-                command.ExecuteNonQuery();
+                    "touhou INT, ahegao INT, favorite INT, image BLOB)";
+                sqlCommand.ExecuteNonQuery();
             }
-            catch (SQLiteException) { /* If the table already exists, do nothing */ }
 
+            // Pregenerated code, no idea what it does
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            try
-            {
-                Loli_in_form loliDatabase = new Loli_in_form();
-                loliDatabase.UserControlPanel.Controls.Add(Front_page.Instance);
-                Application.Run(loliDatabase);               
-            }
-            catch (System.ObjectDisposedException)
-            {
 
-            }
+            // Filling the form with the front page before starting
+            Loli_in_form loliDatabase = new Loli_in_form();
+            loliDatabase.UserControlPanel.Controls.Add(Front_page.Instance);
+            Application.Run(loliDatabase);               
         }
     }
 }

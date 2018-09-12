@@ -100,21 +100,20 @@
             this.NonhCheck = new System.Windows.Forms.CheckBox();
             this.KemonomimiCheck = new System.Windows.Forms.CheckBox();
             this.YuriCheck = new System.Windows.Forms.CheckBox();
-            this.DeleteButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SubmitTags = new System.Windows.Forms.Button();
             this.SkipButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PopulatePicBox = new System.Windows.Forms.PictureBox();
             this.FavoriteCheck = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PopulatePicBox)).BeginInit();
             this.SuspendLayout();
             // 
             // saveFilesButton
             // 
-            this.saveFilesButton.Location = new System.Drawing.Point(5, 377);
+            this.saveFilesButton.Location = new System.Drawing.Point(5, 353);
             this.saveFilesButton.Name = "saveFilesButton";
-            this.saveFilesButton.Size = new System.Drawing.Size(60, 23);
+            this.saveFilesButton.Size = new System.Drawing.Size(123, 23);
             this.saveFilesButton.TabIndex = 55;
             this.saveFilesButton.Text = "Save";
             this.saveFilesButton.UseVisualStyleBackColor = true;
@@ -151,7 +150,7 @@
             // 
             // AddFileButton
             // 
-            this.AddFileButton.Location = new System.Drawing.Point(5, 353);
+            this.AddFileButton.Location = new System.Drawing.Point(6, 377);
             this.AddFileButton.Name = "AddFileButton";
             this.AddFileButton.Size = new System.Drawing.Size(60, 23);
             this.AddFileButton.TabIndex = 51;
@@ -343,16 +342,6 @@
             this.YuriCheck.UseVisualStyleBackColor = true;
             this.YuriCheck.CheckedChanged += new System.EventHandler(this.CheckBoxChaged);
             // 
-            // DeleteButton
-            // 
-            this.DeleteButton.Location = new System.Drawing.Point(68, 353);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(60, 23);
-            this.DeleteButton.TabIndex = 33;
-            this.DeleteButton.Text = "Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -394,14 +383,14 @@
             this.SkipButton.UseVisualStyleBackColor = true;
             this.SkipButton.Click += new System.EventHandler(this.SkipButton_Click);
             // 
-            // pictureBox1
+            // PopulatePicBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(188, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(627, 434);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 29;
-            this.pictureBox1.TabStop = false;
+            this.PopulatePicBox.Location = new System.Drawing.Point(188, 0);
+            this.PopulatePicBox.Name = "PopulatePicBox";
+            this.PopulatePicBox.Size = new System.Drawing.Size(627, 434);
+            this.PopulatePicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PopulatePicBox.TabIndex = 29;
+            this.PopulatePicBox.TabStop = false;
             // 
             // FavoriteCheck
             // 
@@ -442,14 +431,13 @@
             this.Controls.Add(this.NonhCheck);
             this.Controls.Add(this.KemonomimiCheck);
             this.Controls.Add(this.YuriCheck);
-            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SubmitTags);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PopulatePicBox);
             this.Name = "PopulateDataBase";
             this.Size = new System.Drawing.Size(815, 434);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PopulatePicBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,12 +467,11 @@
         private System.Windows.Forms.CheckBox NonhCheck;
         private System.Windows.Forms.CheckBox KemonomimiCheck;
         private System.Windows.Forms.CheckBox YuriCheck;
-        private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button SubmitTags;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button SkipButton;
         private System.Windows.Forms.CheckBox FavoriteCheck;
+        internal System.Windows.Forms.PictureBox PopulatePicBox;
     }
 }

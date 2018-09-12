@@ -34,28 +34,11 @@ namespace BentaiDataBase
             {
                 if (Type.GetType("PopulateDataBase.PopulateDataBase") != null)
                 {
-                    if (PopulateDataBase.Instance.picsToBeMoved.Count != 0)
+                    if (PopulateDataBase.Instance.imageData.Count != 0)
                     {
-
                         PopulateDataBase.Instance.SaveFiles();
                     }
                 }
-            }
-        }
-
-        private void Loli_in_form_FormClosed_1(object sender, FormClosedEventArgs e)
-        {
-            if (Type.GetType("PopulateDataBase") != null)
-            {
-                PopulateDataBase.Instance.sqlConnection.Close();
-            }
-            if (Type.GetType("ViewDatabase") != null)
-            {
-                ViewDatabase.Instance.sqlConnection.Close();
-            }
-            if (Type.GetType("DataBaseStatistics") != null)
-            {
-                DataBaseStatistics.Instance.sqlConnection.Close();
             }
         }
 
@@ -71,9 +54,6 @@ namespace BentaiDataBase
                             PopulateDataBase.Instance.SubmitTags_Click(sender, e);
                         }
                     }
-                    break;
-                case Keys.Delete:
-                    PopulateDataBase.Instance.button1_Click(sender, e);
                     break;
                 case Keys.D1:
                     PopulateDataBase.Instance.RevertLoliCheck();

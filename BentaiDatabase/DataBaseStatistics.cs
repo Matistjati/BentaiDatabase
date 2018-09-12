@@ -29,17 +29,10 @@ namespace BentaiDataBase
             "Yuri", "Loli", "Kemonomimi", "nonH", "Masturbation", "Tentacle", "Solo", "Toys", "BigBreast",
             "Boat", "Blowjob", "Anal", "Touhou", "Ahegao"
         };
-        public SQLiteConnection sqlConnection;
-        private string scriptDirectory;
 
         public DataBaseStatistics()
         {
             InitializeComponent();
-
-            scriptDirectory = System.IO.Directory.GetCurrentDirectory();
-
-            sqlConnection = new SQLiteConnection($@"Data Source ={scriptDirectory}\Imagedata\images.sqlite; version = 3");
-            sqlConnection.Open();
 
             DataBaseChart.Legends[0].Enabled = false;
         }
@@ -101,28 +94,22 @@ namespace BentaiDataBase
                         throw new Exception("there are more labels in the label list than accounted for");
                 }
 
-                string sqlCommandString = $"select {sqlFieldName} from imageData";
-                SQLiteCommand sqlCommand = new SQLiteCommand(sqlCommandString, sqlConnection);
-                SQLiteDataReader sqlReader;
-
-                try
+                using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
                 {
-                    sqlReader = sqlCommand.ExecuteReader();
-                }
-                catch (SQLiteException)
-                {
-                    CurrentChartLabel.Text = "No Database Info yet, sorry";
-                    return;
-                }
+                    sqlConnection.Open();
+                    using (SQLiteCommand sqlCommand = new SQLiteCommand($"select {sqlFieldName} from imageData", sqlConnection))
+                    using (SQLiteDataReader sqlReader = sqlCommand.ExecuteReader())
+                    {
+                        while (sqlReader.Read())
+                        {
+                            int fieldValue = (int)sqlReader[sqlFieldName];
+                            FieldSum.Add(fieldValue);
+                        }
 
-                while (sqlReader.Read())
-                {
-                    int fieldValue = (int)sqlReader[sqlFieldName];
-                    FieldSum.Add(fieldValue);
+                        valueSums.Add(FieldSum.Sum());
+                        FieldSum.Clear();
+                    }
                 }
-
-                valueSums.Add(FieldSum.Sum());
-                FieldSum.Clear();
             }
 
             List<string> DataNames = DataNamesStatic.ToList();
@@ -147,6 +134,7 @@ namespace BentaiDataBase
             DataBaseChart.Series[0].Points.DataBindXY(DataNames, valueSums);
             DataBaseChart.Legends[0].Enabled = true;
             DataBaseChart.ChartAreas[0].Area3DStyle.Enable3D = true;
+            DataBaseChart.Series[0].IsValueShownAsLabel = true;
         }
     }
 }

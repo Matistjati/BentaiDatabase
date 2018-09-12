@@ -87,7 +87,6 @@
             this.Name = "Loli_in_form";
             this.Text = "Loli Database";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Loli_in_form_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Loli_in_form_FormClosed_1);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Loli_in_form_KeyUp);
             this.ResumeLayout(false);
 
