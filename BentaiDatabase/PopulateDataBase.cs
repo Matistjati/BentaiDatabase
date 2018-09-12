@@ -308,7 +308,7 @@ namespace BentaiDataBase
 
         public void SaveFiles()
         {
-            if (this.loadedPics.Count != 0)
+            if (loadedPics.Count != 0)
             {
                 MessageBoxManager.Yes = "Move";
                 MessageBoxManager.No = "Copy";
