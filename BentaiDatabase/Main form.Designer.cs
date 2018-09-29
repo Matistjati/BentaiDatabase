@@ -33,6 +33,7 @@
             this.AddImagesButton = new System.Windows.Forms.Button();
             this.ViewImagesButton = new System.Windows.Forms.Button();
             this.DataStatisticsButton = new System.Windows.Forms.Button();
+            this.ImageExporterButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserControlPanel
@@ -64,7 +65,7 @@
             // 
             // DataStatisticsButton
             // 
-            this.DataStatisticsButton.Location = new System.Drawing.Point(718, 58);
+            this.DataStatisticsButton.Location = new System.Drawing.Point(718, 87);
             this.DataStatisticsButton.Name = "DataStatisticsButton";
             this.DataStatisticsButton.Size = new System.Drawing.Size(62, 23);
             this.DataStatisticsButton.TabIndex = 3;
@@ -72,12 +73,23 @@
             this.DataStatisticsButton.UseVisualStyleBackColor = true;
             this.DataStatisticsButton.Click += new System.EventHandler(this.DataStatisticsButton_Click);
             // 
+            // ImageExporterButton
+            // 
+            this.ImageExporterButton.Location = new System.Drawing.Point(718, 58);
+            this.ImageExporterButton.Name = "ImageExporterButton";
+            this.ImageExporterButton.Size = new System.Drawing.Size(62, 23);
+            this.ImageExporterButton.TabIndex = 4;
+            this.ImageExporterButton.Text = "Export";
+            this.ImageExporterButton.UseVisualStyleBackColor = true;
+            this.ImageExporterButton.Click += new System.EventHandler(this.ImageExporterButton_Click);
+            // 
             // Loli_in_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(780, 404);
+            this.Controls.Add(this.ImageExporterButton);
             this.Controls.Add(this.DataStatisticsButton);
             this.Controls.Add(this.ViewImagesButton);
             this.Controls.Add(this.AddImagesButton);
@@ -97,6 +109,7 @@
         private System.Windows.Forms.Button ViewImagesButton;
         private System.Windows.Forms.Button DataStatisticsButton;
         public System.Windows.Forms.Panel UserControlPanel;
+        private System.Windows.Forms.Button ImageExporterButton;
     }
 }
 

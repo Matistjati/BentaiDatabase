@@ -108,6 +108,11 @@ namespace BentaiDataBase
             }
         }
 
+        internal static Bitmap GetBitmap(int imageId)
+        {
+            return new Bitmap(GetImage(imageId));
+        }
+
         internal static Image GetImage(int imageId)
         {
             using (SQLiteConnection sqlConnection = new SQLiteConnection(Globals.dataBaseString))
@@ -118,15 +123,11 @@ namespace BentaiDataBase
                 using (IDataReader imageReader = sqlCommand.ExecuteReader())
                 {
                     Byte[] imageInBytes;
-                    if (imageReader.Read())
-                    {
-                        imageInBytes = (Byte[])imageReader[0];
-                        return ByteListToImage(imageInBytes);
-                    }
-                    else
-                    {
-                        throw new Exception("send help 2");
-                    }
+
+                    imageReader.Read();
+                    imageInBytes = (Byte[])imageReader[0];
+
+                    return ByteListToImage(imageInBytes);
                 }
             }
         }

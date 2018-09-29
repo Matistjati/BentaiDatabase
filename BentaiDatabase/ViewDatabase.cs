@@ -214,6 +214,12 @@ namespace BentaiDataBase
             }
         }
 
+        private readonly string[] DataBaseNames = new string[]
+        {
+            "yuri", "loli", "kemonomimi", "nonh", "masturbation", "tentacle", "solo", "toys", "bigBreast",
+            "boat", "blowJob", "anal", "touhou", "ahegao"
+        };
+
         private void SearchButton_Click(object sender, EventArgs e)
         {
             imageIds.Clear();
@@ -224,63 +230,9 @@ namespace BentaiDataBase
             Dictionary<string, int> selectedSearch = new Dictionary<string, int>();
 
             string sqlFieldName;
-            for (int i = 0; i < tagLabels.Length; i++)
+            for (int i = 0; i < DataBaseNames.Length; i++)
             {
-                /*
-                 * YuriLabel, KemonomimiLabel, NonHLabel, MasturbationLabel, TentaclesLabel,
-                 * SoloLabel, ToysLabel, BigBreastsLabel, BoatLabel, LoliLabel,
-                 * BlowJobLabel, AnalLabel, TouhouLabel, AhegaoLabel, FavoritesLabel
-                 */
-                switch (i)
-                {
-                    case 0:
-                        sqlFieldName = "yuri";
-                        break;
-                    case 1:
-                        sqlFieldName = "kemonomimi";
-                        break;
-                    case 2:
-                        sqlFieldName = "nonh";
-                        break;
-                    case 3:
-                        sqlFieldName = "masturbation";
-                        break;
-                    case 4:
-                        sqlFieldName = "tentacle";
-                        break;
-                    case 5:
-                        sqlFieldName = "solo";
-                        break;
-                    case 6:
-                        sqlFieldName = "toys";
-                        break;
-                    case 7:
-                        sqlFieldName = "bigBreast";
-                        break;
-                    case 8:
-                        sqlFieldName = "boat";
-                        break;
-                    case 9:
-                        sqlFieldName = "loli";
-                        break;
-                    case 10:
-                        sqlFieldName = "blowJob";
-                        break;
-                    case 11:
-                        sqlFieldName = "anal";
-                        break;
-                    case 12:
-                        sqlFieldName = "touhou";
-                        break;
-                    case 13:
-                        sqlFieldName = "ahegao";
-                        break;
-                    case 14:
-                        sqlFieldName = "favorite";
-                        break;
-                    default:
-                        throw new Exception("there are more labels in the label list than accounted for");
-                }
+                sqlFieldName = DataBaseNames[i];
                 selectedSearch.Add(sqlFieldName, tagLabels[i].Text == "Yes" ? 1 : tagLabels[i].Text == "No" ? 0 : 2);
             }
 
@@ -293,6 +245,10 @@ namespace BentaiDataBase
                     {
                         sqlCommandString += $" {searchCriteria.Key} = {searchCriteria.Value} and";
                     }
+                }
+                if (sqlCommandString == "select imageId from imageData where")
+                {
+                    sqlCommandString = "select imageId from imageData";
                 }
 
                 int lastAndIndex = sqlCommandString.LastIndexOf("and");

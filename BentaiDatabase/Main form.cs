@@ -135,5 +135,19 @@ namespace BentaiDataBase
                 DataBaseStatistics.Instance.BringToFront();
             }
         }
+
+        private void ImageExporterButton_Click(object sender, EventArgs e)
+        {
+            if (!UserControlPanel.Controls.Contains(Image_Exporter.Instance))
+            {
+                UserControlPanel.Controls.Add(Image_Exporter.Instance);
+                Image_Exporter.Instance.Dock = DockStyle.Fill;
+                Image_Exporter.Instance.BringToFront();
+            }
+            else
+            {
+                Image_Exporter.Instance.BringToFront();
+            }
+        }
     }
 }

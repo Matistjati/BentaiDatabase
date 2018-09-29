@@ -9,6 +9,7 @@ namespace BentaiDataBase
 {
     public partial class PopulateDataBase : UserControl
     {
+        #region SingleTon
         private static PopulateDataBase _instance;
         public static PopulateDataBase Instance
         {
@@ -16,35 +17,12 @@ namespace BentaiDataBase
             {
                 if (_instance == null)
                 {
-                    int latestPicInt;
-
-                    // Finding the picture name
-                    if (!File.Exists($@"{Globals.scriptDirectory}\Imagedata\currentimage.txt"))
-                    {
-                        latestPicInt = 0;
-                    }
-                    else if (!(new FileInfo($@"{Globals.scriptDirectory}\Imagedata\currentimage.txt").Length == 0))
-                    {
-                        string[] lines = File.ReadAllLines($@"{Globals.scriptDirectory}\Imagedata\currentimage.txt");
-                        if (Int32.TryParse(lines[0], out int tempPicInt))
-                        {
-                            latestPicInt = tempPicInt;
-                        }
-                        else
-                        {
-                            latestPicInt = 0;
-                        }
-                    }
-                    else
-                    {
-                        latestPicInt = 0;
-                    }
-
-                    _instance = new PopulateDataBase(latestPicInt);
+                    _instance = new PopulateDataBase();
                 }
                 return _instance;
             }
         }
+        #endregion
 
         private int currentPic;
 
@@ -75,7 +53,7 @@ namespace BentaiDataBase
             }
         }
 
-        public PopulateDataBase(int ImageNamenum)
+        public PopulateDataBase()
         {
             InitializeComponent();
 

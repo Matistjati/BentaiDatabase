@@ -99,6 +99,12 @@
       <DependentUpon>Front page.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="Image Exporter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Image Exporter.Designer.cs">
+      <DependentUpon>Image Exporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Front page.resx">
       <DependentUpon>Front page.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Image Exporter.resx">
+      <DependentUpon>Image Exporter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main form.resx">
       <DependentUpon>Main form.cs</DependentUpon>
